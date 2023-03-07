@@ -9,7 +9,7 @@ console.log("AAAAAAAAAAAAA");
 console.log("AAAAAAAAAAAAA");
 console.log("AAAAAAAAAAAAA");
 console.log("AAAAAAAAAAAAA");
-console.log("BBBBB");
+console.log("AAAAAAAAAAAAA");
 console.log("AAAAAAAAAAAAA");
 //очень долгая фича ..............
 // ..
