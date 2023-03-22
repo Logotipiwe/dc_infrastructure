@@ -1,17 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mongo-ingress
+  name: ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /
-            pathType: Exact
+          - path: /mongo
+            pathType: Prefix
             backend:
               service:
                 name: express-ser
                 port:
-                  number: 30001
+                  number: 80
