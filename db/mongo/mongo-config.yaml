@@ -4,3 +4,4 @@ metadata:
   name: mongo-config
 data:
   database_url: mongo-ser
+  mongo_basepath: /mongo

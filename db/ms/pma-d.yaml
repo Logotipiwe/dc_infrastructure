@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pma
+  labels:
+    app: pma
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pma
+  template:
+    metadata:
+      labels:
+        app: pma
+    spec:
+      containers:
+        - name: pma
+          image: 'phpmyadmin:5.2.0-apache'
+          ports:
+            - containerPort: 80
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ms-sec
+                  key: m-password
+            - name: PMA_ARBITARY
+              value: '1'
+            - name: PMA_HOST
+              value: 'ms-ser'
+            - name: PMA_PORT
+              value: "3306"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pma-ser
+spec:
+  selector:
+    app: pma
+  type: LoadBalancer
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+#      nodePort: 3306

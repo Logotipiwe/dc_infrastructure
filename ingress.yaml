@@ -2,8 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
@@ -14,5 +14,12 @@ spec:
             backend:
               service:
                 name: express-ser
+                port:
+                  number: 80
+          - path: /ms
+            pathType: Prefix
+            backend:
+              service:
+                name: pma-ser
                 port:
                   number: 80

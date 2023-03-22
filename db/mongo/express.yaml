@@ -35,6 +35,8 @@ spec:
                 configMapKeyRef:
                   key: database_url
                   name: mongo-config
+            - name: ME_CONFIG_SITE_BASEURL
+              value: '/mongo'
 ---
 apiVersion: v1
 kind: Service

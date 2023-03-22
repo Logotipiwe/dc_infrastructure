@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-d
+  labels:
+    app: ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms
+  template:
+    metadata:
+      labels:
+        app: ms
+    spec:
+      containers:
+        - name: ms
+          image: 'mysql:8'
+          ports:
+            - containerPort: 3306
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ms-sec
+                key: m-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-ser
+spec:
+  type: ClusterIP
+  selector:
+    app: ms
+  ports:
+    - port: 3306
+      protocol: TCP
+      targetPort: 3306
