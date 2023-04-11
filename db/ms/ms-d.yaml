@@ -19,12 +19,19 @@ spec:
           image: 'mysql:8'
           ports:
             - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: my-pvc-ms
           env:
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: ms-sec
                 key: m-password
+      volumes:
+        - name: my-pvc-ms
+          persistentVolumeClaim:
+            claimName: my-pvc
 ---
 apiVersion: v1
 kind: Service
