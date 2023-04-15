@@ -8,6 +8,7 @@ spec:
 #  storageClassName: pv-demo
   capacity:
     storage: 5Gi
+  persistentVolumeReclaimPolicy: Retain
   accessModes:
     - ReadWriteMany
   hostPath:
