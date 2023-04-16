@@ -31,6 +31,8 @@ spec:
               value: 'ms-ser'
             - name: PMA_PORT
               value: "3306"
+{{/*            - name: PMA_ABSOLUTE_URI*/}}
+{{/*              value: "/pma"*/}}
 ---
 apiVersion: v1
 kind: Service
@@ -39,9 +41,9 @@ metadata:
 spec:
   selector:
     app: pma
-  type: LoadBalancer
+  type: ClusterIP
   ports:
-    - port: 81
+    - port: 80
       protocol: TCP
       targetPort: 80
 #      nodePort: 3306

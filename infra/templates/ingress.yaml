@@ -9,17 +9,24 @@ spec:
   rules:
     - http:
         paths:
-          - path: /mongo
+          - path: /keepbalancevk
             pathType: Prefix
             backend:
               service:
-                name: express-ser
+                name: kb-front-ser
                 port:
                   number: 80
-          - path: /ms
+{{/*          - path: /pma*/}}
+{{/*            pathType: Prefix*/}}
+{{/*            backend:*/}}
+{{/*              service:*/}}
+{{/*                name: pma-ser*/}}
+{{/*                port:*/}}
+{{/*                  number: 80*/}}
+          - path: /kb_back
             pathType: Prefix
             backend:
               service:
-                name: pma-ser
+                name: kb-back-ser
                 port:
                   number: 80
