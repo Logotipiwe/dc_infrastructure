@@ -41,9 +41,9 @@ metadata:
 spec:
   selector:
     app: pma
-  type: ClusterIP
+  type: LoadBalancer
   ports:
-    - port: 80
+    - port: 81
       protocol: TCP
       targetPort: 80
 #      nodePort: 3306

@@ -16,13 +16,13 @@ spec:
                 name: kb-front-ser
                 port:
                   number: 80
-{{/*          - path: /pma*/}}
+{{/*          - path: /a*/}}
 {{/*            pathType: Prefix*/}}
 {{/*            backend:*/}}
 {{/*              service:*/}}
 {{/*                name: pma-ser*/}}
 {{/*                port:*/}}
-{{/*                  number: 80*/}}
+{{/*                  number: 81*/}}
           - path: /kb_back
             pathType: Prefix
             backend:
