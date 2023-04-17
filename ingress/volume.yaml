@@ -11,6 +11,6 @@ spec:
   persistentVolumeReclaimPolicy: Retain
 
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   hostPath:
     path: "/persistent-volume"
