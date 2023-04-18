@@ -8,9 +8,9 @@ spec:
 #  storageClassName: pv-demo
   capacity:
     storage: 5Gi
+  volumeMode: Filesystem
   persistentVolumeReclaimPolicy: Retain
-
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/persistent-volume"
+    path: "/mnt/persistent-volume"
