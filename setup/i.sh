@@ -26,3 +26,13 @@ systemctl restart containerd
 
 kubeadm init
 export KUBECONFIG=/etc/kubernetes/admin.conf
+
+#какойто канал
+curl https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/canal.yaml -O
+kubectl apply -f canal.yaml
+
+#чтобы работало
+sudo -i
+swapoff -a
+exit
+strace -eopenat kubectl version
