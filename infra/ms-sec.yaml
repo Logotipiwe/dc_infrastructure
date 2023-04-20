@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: ms-sec
-type: Opaque
-data:
-  m-password: MTIzNA==

@@ -1,0 +1,14 @@
+version: "3"
+services:
+  ms:
+    container_name: ms
+    image: mysql:8
+    restart: always
+    volumes:
+    - msVol:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+#    ports:
+#    - 3306:3306
+volumes:
+  msVol:
