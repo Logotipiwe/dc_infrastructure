@@ -36,3 +36,17 @@ sudo -i
 swapoff -a
 exit
 strace -eopenat kubectl version
+
+#дашборд
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+kubectl proxy
+
+#reset
+kubeadm reset
+rm -r /etc/cni/net.d
+run ipvsadm --clear
+rm $HOME/.kube/config
+
+#fix cp
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+kubectl taint nodes --all node.kubernetes.io/not-ready-
