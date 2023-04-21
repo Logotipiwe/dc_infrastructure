@@ -2,11 +2,12 @@ version: "3"
 services:
   pma:
     container_name: pma
-    image: 'phpmyadmin:5.2.0-apache'
+    image: 'phpmyadmin:5-apache'
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       PMA_HOST: ms
       PMA_PORT: 3306
-      PMA_ARBITARY: 1
     ports:
-    - 81:8080
+      - 81:80
+networks:
+  d_net:
