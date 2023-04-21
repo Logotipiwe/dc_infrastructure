@@ -8,7 +8,10 @@ services:
     - msVol:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    networks:
+      - dc-net
+networks:
+  dc-net:
+    external: true
 volumes:
   msVol:
-#networks:
-#  d_net:

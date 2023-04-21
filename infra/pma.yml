@@ -9,5 +9,8 @@ services:
       PMA_PORT: 3306
     ports:
       - 81:80
+    networks:
+      - dc-net
 networks:
-  d_net:
+  dc-net:
+    external: true
