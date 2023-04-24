@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: git@github.com:Logotipiwe/dc_vars.git
-          token: ${{ secrets.PAT }}
+          token: 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
       - name: load-env
         uses: duskmoon314/action-load-env@v1.1.0
 
