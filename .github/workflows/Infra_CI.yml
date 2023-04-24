@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: Logotipiwe/dc_vars
+          repository: git@github.com:Logotipiwe/dc_vars.git
       - name: load-env
         uses: duskmoon314/action-load-env@v1.1.0
 
