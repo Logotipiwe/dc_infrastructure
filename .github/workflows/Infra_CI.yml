@@ -25,14 +25,14 @@ jobs:
           local: infra
           remote: /kuber/infra
           host: ${{env.DC_HOST}}
-          username: ${SSH_USER}
-          password: ${SSH_PASSWORD}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
       - name: Deploy
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${DC_HOST}
-          username: ${SSH_USER}
-          password: ${SSH_PASSWORD}
+          host: ${{env.DC_HOST}}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
           port: 22
           script: |
             cd /kuber/infra/
