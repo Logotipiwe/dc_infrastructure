@@ -24,7 +24,7 @@ jobs:
         with:
           local: infra
           remote: /kuber/infra
-          host: ${DC_HOST}
+          host: ${{DC_HOST}}
           username: ${SSH_USER}
           password: ${SSH_PASSWORD}
       - name: Deploy
