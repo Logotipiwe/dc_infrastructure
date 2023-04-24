@@ -7,6 +7,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: RUN
+        run: |
+          echo ${{ secrets.PAT }}
       - uses: actions/checkout@v3
         with:
           repository: git@github.com:Logotipiwe/dc_vars.git
