@@ -38,9 +38,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
-            docker-compose \
-              -f /kuber/infra/ms.yml \
-              -f /kuber/infra/pma.yml \
-              -f /kuber/infra/ingress.yml \
-              down --remove-orphans
-            docker-compose -f /kuber/infra/ms.yml -f /kuber/infra/pma.yml -f /kuber/infra/ingress.yml up -d
+            cd /kuber/infra/
+            docker-compose $(ls *.yml|sed "s/^/-f /g"|xargs) down --remove-orphans
+            docker-compose $(ls *.yml|sed "s/^/-f /g"|xargs) up -d
