@@ -10,7 +10,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: Logotipiwe/dc_vars
-          ref: main
       - name: load-env
         uses: duskmoon314/action-load-env@v1.1.0
 
