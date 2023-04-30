@@ -8,7 +8,7 @@ services:
       PMA_HOST: ms
       PMA_PORT: 3306
     ports:
-      - 81:80
+      - 30132:80
     networks:
       - dc-net
 networks:
