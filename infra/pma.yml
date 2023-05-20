@@ -3,6 +3,7 @@ services:
   pma:
     container_name: pma
     image: 'phpmyadmin:5-apache'
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       PMA_HOST: ms
