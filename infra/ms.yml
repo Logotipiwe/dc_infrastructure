@@ -4,8 +4,8 @@ services:
     container_name: ms
     image: mysql:8
     restart: always
-    volumes:
-    - msVol:/var/lib/mysql
+#    volumes:
+#    - msVol:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     networks:
@@ -15,3 +15,4 @@ networks:
     external: true
 volumes:
   msVol:
+
