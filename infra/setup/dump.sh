@@ -1,5 +1,5 @@
 cont="ms"
-dump_dir="/kuber/infra/dumps"
+dump_dir="/home/dumps"
 
 #cont="sql"
 #dump_dir=""
