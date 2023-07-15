@@ -33,8 +33,10 @@ jobs:
           port: 22
           script: |
             export MYSQL_ROOT_PASSWORD=${{env.MYSQL_ROOT_PASSWORD}}
+            export DOZZLE_PASSWORD=${{env.DOZZLE_PASSWORD}}
             cd /kuber/infra/
             docker-compose $(ls *.yml|sed "s/^/-f /g"|xargs) down --remove-orphans
             docker-compose -f ingress.yml up -d
             docker-compose -f ms.yml up -d
             docker-compose -f pma.yml up -d
+            docker-compose -f dozzle.yml up -d
