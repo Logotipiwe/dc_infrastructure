@@ -1,7 +1,7 @@
 name: Cluster Up
 on:
   push:
-    branches: [ "deploy_all" ]
+    branches: [ "dev" ]
   workflow_dispatch:
 jobs:
   job0:
@@ -10,6 +10,5 @@ jobs:
       - id: step0
         run: echo "step 0!"
   job1:
-    runs-on: ubuntu-latest
     uses: logotipiwe/dc_points_service/.github/workflows/test.yml@v1
 
