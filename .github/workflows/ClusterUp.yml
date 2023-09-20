@@ -10,7 +10,7 @@ jobs:
       - id: step0
         run: echo "step 0!"
   job1:
-    uses: logotipiwe/dc_points_service/.github/workflows/deploy.yml@dev
+    uses: logotipiwe/dc_points_service/.github/workflows/deploy.yml@main
     secrets: inherit
 
 
