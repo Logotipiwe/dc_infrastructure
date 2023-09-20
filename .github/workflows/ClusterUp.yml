@@ -4,10 +4,12 @@ on:
 #    branches: [ "main" ]
   workflow_dispatch:
 jobs:
-  job1:
+  job0:
     runs-on: ubuntu-latest
     steps:
       - id: step0
         run: echo "step 0!"
-      - id: step1
-        uses: logotipiwe/dc_points_service/.github/workflows/test.yml@v1
+  job1:
+    runs-on: ubuntu-latest
+    uses: logotipiwe/dc_points_service/.github/workflows/test.yml@v1
+
