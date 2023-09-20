@@ -10,5 +10,5 @@ jobs:
       - id: step0
         run: echo "step 0!"
   job1:
-    uses: logotipiwe/dc_points_service/.github/workflows/test.yml@latest
+    uses: logotipiwe/dc_points_service/.github/workflows/test.yml@dev
 
