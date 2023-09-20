@@ -1,7 +1,7 @@
 name: Cluster Up
 on:
-#  push:
-#    branches: [ "main" ]
+  push:
+    branches: [ "deploy_all" ]
   workflow_dispatch:
 jobs:
   job0:
