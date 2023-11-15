@@ -6,30 +6,26 @@ on:
         type: string
         required: true
     secrets:
-      sec:
+      pat:
         required: true
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: echo repo sec
-        run: echo ${{secrets.PAT}}
+      - uses: actions/checkout@v3
+        with:
+          repository: Logotipiwe/dc_vars
+          token: ${{secrets.pat}}
+      - name: load-env
+        uses: duskmoon314/action-load-env@v1.1.0
 
-      - name: echo provided sec
-        run: echo ${{secrets.sec}}
-
-#      - uses: actions/checkout@v3
-#        with:
-#          repository: Logotipiwe/dc_vars
-#          token: ${{secrets.PAT}}
-#      - name: load-env
-#        uses: duskmoon314/action-load-env@v1.1.0
-#
-#      - name: Checkout project
-#        uses: actions/checkout@v3
-#        with:
-#          repository: Logotipiwe/dc_infrastructure
-#          token: ${{secrets.PAT}}
+      - name: Checkout project
+        uses: actions/checkout@v3
+        with:
+          repository: Logotipiwe/${{inputs.repoName}}
+          token: ${{secrets.pat}}
+      - name: ls
+        run: ls
 
 
 #
