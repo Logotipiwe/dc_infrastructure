@@ -10,7 +10,7 @@ jobs:
       with:
         repoName: dc_points_service
       secrets:
-        sec: SECREEET!
+        pat: SECREEET!
 
 #      - name: Checkout project
 #        uses: actions/checkout@v3
