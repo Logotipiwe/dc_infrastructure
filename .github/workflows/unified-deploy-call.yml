@@ -9,8 +9,8 @@ jobs:
       uses: ./.github/workflows/unified-deploy.yml
       with:
         repoName: REPO_NAMEEEE!
-      secrets:
-        someSecret: SECREEET!
+#      secrets:
+#        someSecret: SECREEET!
 
 #      - name: Checkout project
 #        uses: actions/checkout@v3
