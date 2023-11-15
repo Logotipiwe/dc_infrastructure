@@ -1,0 +1,45 @@
+name: Deploy app ${{inputs.repoName}}
+on:
+  workflow_call:
+    inputs:
+      repoName:
+        type: string
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echoo
+        run: echo ${{inputs.repoName}}
+
+#      - name: Checkout project
+#        uses: actions/checkout@v3
+#        with:
+#          repository: Logotipiwe/dc_infrastructure
+#          token: ${{secrets.PAT}}
+#
+#      - name: Upload
+#        uses: garygrossgarten/github-action-scp@release
+#        with:
+#          local: infra
+#          remote: /kuber/infra
+#          host: ${{env.DC_HOST}}
+#          username: ${{env.SSH_USER}}
+#          password: ${{env.SSH_PASSWORD}}
+#      - name: Deploy
+#        uses: appleboy/ssh-action@v0.1.10
+#        with:
+#          host: ${{env.DC_HOST}}
+#          username: ${{env.SSH_USER}}
+#          password: ${{env.SSH_PASSWORD}}
+#          port: 22
+#          script: |
+#            export MYSQL_ROOT_PASSWORD=${{env.MYSQL_ROOT_PASSWORD}}
+#            export DOZZLE_PASSWORD=${{env.DOZZLE_PASSWORD}}
+#            cd /kuber/infra/
+#            docker-compose $(ls *.yml|sed "s/^/-f /g"|xargs) down --remove-orphans
+#            docker-compose -f ingress.yml up -d
+#            docker-compose -f ms.yml up -d
+#            docker-compose -f pma.yml up -d
+#            docker-compose -f dozzle.yml up -d
+#
