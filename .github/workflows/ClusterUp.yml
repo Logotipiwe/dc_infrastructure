@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   deploy-infra:
-    uses: ./.github/workflows/deploy.yml@main
+    uses: ./.github/workflows/deploy.yml
     secrets: inherit
   deploy-points-service:
     uses: logotipiwe/dc_points_service/.github/workflows/deploy.yml@main
