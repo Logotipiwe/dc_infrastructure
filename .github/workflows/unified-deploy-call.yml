@@ -9,7 +9,7 @@ jobs:
       uses: ./.github/workflows/unified-build.yml
       with:
         repoName: dc_points_service
-        dockerUser: ${{env.DOCKER_USER}}
+        dockerUser: ${{vars.DOCKER_USER}}
         dockerImageName: points-service
       secrets:
         pat: ${{secrets.PAT}}
