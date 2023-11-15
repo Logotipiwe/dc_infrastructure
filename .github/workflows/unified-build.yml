@@ -5,22 +5,24 @@ on:
       repoName:
         type: string
         required: true
+      dockerfilePath:
+        type: string
+        default: .
+      dockerUser:
+        type: string
+        required: true
+      dockerImageName:
+        type: string
+        required: true
     secrets:
       pat:
+        required: true
+      dockerPat:
         required: true
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout vars
-        uses: actions/checkout@v3
-        with:
-          repository: Logotipiwe/dc_vars
-          token: ${{secrets.pat}}
-
-      - name: load-env
-        uses: duskmoon314/action-load-env@v1.1.0
-
       - name: Checkout project
         uses: actions/checkout@v3
         with:
@@ -28,10 +30,11 @@ jobs:
           token: ${{secrets.pat}}
 
       - name: Build
-        id: build_push
+        id: build_with_timestamp
         run: |
           ls
-          export IMAGE=${{ env.DOCKER_USER }}/points-service:$(date +%s)
-          docker build . -t ${IMAGE}
+          export IMAGE=${{inputs.dockerUser}}/${{inputs.dockerImageName}}:$(date +%s)
+          docker build ${{inputs.dockerfilePath}} -t ${IMAGE}
           docker push ${IMAGE}
           echo "IMAGE=${IMAGE}" >> "$GITHUB_ENV"
+          echo Image is ${IMAGE}
