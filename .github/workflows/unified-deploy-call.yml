@@ -6,11 +6,11 @@ on:
   workflow_dispatch:
 jobs:
   build:
-      uses: ./.github/workflows/unified-deploy.yml
+      uses: ./.github/workflows/unified-build.yml
       with:
-        repoName: REPO_NAMEEEE!
-#      secrets:
-#        someSecret: SECREEET!
+        repoName: dc_points_service
+      secrets:
+        sec: SECREEET!
 
 #      - name: Checkout project
 #        uses: actions/checkout@v3
