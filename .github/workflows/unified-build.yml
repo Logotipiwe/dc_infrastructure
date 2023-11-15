@@ -12,10 +12,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout vars
+        uses: actions/checkout@v3
         with:
           repository: Logotipiwe/dc_vars
           token: ${{secrets.pat}}
+
       - name: load-env
         uses: duskmoon314/action-load-env@v1.1.0
 
@@ -24,3 +26,12 @@ jobs:
         with:
           repository: Logotipiwe/${{inputs.repoName}}
           token: ${{secrets.pat}}
+
+      - name: Build
+        id: build_push
+        run: |
+          ls
+          export IMAGE=${{ env.DOCKER_USER }}/points-service:$(date +%s)
+          docker build . -t ${IMAGE}
+          docker push ${IMAGE}
+          echo "IMAGE=${IMAGE}" >> "$GITHUB_ENV"
