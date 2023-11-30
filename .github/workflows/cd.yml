@@ -44,4 +44,5 @@ jobs:
             docker-compose -f ingress.yml up -d
             docker-compose -f ms.yml up -d
             docker-compose -f pma.yml up -d
-            docker-compose -f dozzle.yml up -d
+#            docker-compose -f dozzle.yml up -d
+            docker-compose -f portainer.yml up -d

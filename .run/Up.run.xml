@@ -8,6 +8,7 @@
             <option value="infra/ingress.yml" />
             <option value="infra/ms.yml" />
             <option value="infra/pma.yml" />
+            <option value="infra/portainer.yml" />
           </list>
         </option>
         <option name="sourceFilePath" value="infra/dozzle.yml" />
