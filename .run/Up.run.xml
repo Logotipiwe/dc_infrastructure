@@ -5,13 +5,13 @@
         <option name="envFilePath" value="C:\PhpstormProjects\dc_vars\local.env" />
         <option name="secondarySourceFiles">
           <list>
-            <option value="infra/ingress.yml" />
             <option value="infra/ms.yml" />
             <option value="infra/pma.yml" />
             <option value="infra/portainer.yml" />
+            <option value="infra/pg.yml" />
           </list>
         </option>
-        <option name="sourceFilePath" value="infra/dozzle.yml" />
+        <option name="sourceFilePath" value="infra/ingress.yml" />
       </settings>
     </deployment>
     <method v="2" />
