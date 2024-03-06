@@ -39,6 +39,9 @@ jobs:
           script: |
             export MYSQL_ROOT_PASSWORD=${{env.MYSQL_ROOT_PASSWORD}}
             export DOZZLE_PASSWORD=${{env.DOZZLE_PASSWORD}}
+            export DB_PASS=${{env.DB_PASS}}
+            export PGADMIN_USER=${{env.PGADMIN_USER}}
+            export PGADMIN_PASSWORD=${{env.PGADMIN_PASSWORD}}
             cd /kuber/infra/
             docker-compose $(ls *.yml|sed "s/^/-f /g"|xargs) down --remove-orphans
             docker-compose -f ingress.yml up -d
