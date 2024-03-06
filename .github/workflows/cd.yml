@@ -45,3 +45,5 @@ jobs:
             docker-compose -f ms.yml up -d
             docker-compose -f pma.yml up -d
             docker-compose -f portainer.yml up -d
+            docker-compose -f pg.yml up -d
+            docker-compose -f pgadmin.yml up -d
