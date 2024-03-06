@@ -9,6 +9,7 @@
             <option value="infra/pma.yml" />
             <option value="infra/portainer.yml" />
             <option value="infra/pg.yml" />
+            <option value="infra/pgadmin.yml" />
           </list>
         </option>
         <option name="sourceFilePath" value="infra/ingress.yml" />

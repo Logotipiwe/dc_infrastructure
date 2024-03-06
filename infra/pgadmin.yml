@@ -1,0 +1,20 @@
+version: "3"
+services:
+  pga:
+    container_name: pga
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_USER}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    networks:
+      - dc-net
+    ports:
+      - 30135:80
+    volumes:
+      - pgaVol:/var/lib/pgadmin
+networks:
+  dc-net:
+    external: true
+volumes:
+  pgaVol:
