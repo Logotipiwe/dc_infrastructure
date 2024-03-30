@@ -43,6 +43,14 @@ jobs:
             export PGADMIN_USER=${{env.PGADMIN_USER}}
             export PGADMIN_PASSWORD=${{env.PGADMIN_PASSWORD}}
             cd /kuber/infra/
+            
+            cp dc-vars-data/ssl/* nginx/ssl
+            cd nginx/ssl
+            ls
+            cat logotipiwe.ru.crt
+            cd /kuber/infra/
+            
+            
             docker-compose $(ls *.yml|sed "s/^/-f /g"|xargs) down --remove-orphans
             docker-compose -f ingress.yml up -d
             docker-compose -f ms.yml up -d
