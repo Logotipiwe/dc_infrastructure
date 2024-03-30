@@ -14,7 +14,10 @@ jobs:
           token: ${{secrets.PAT}}
       - name: load-env
         uses: duskmoon314/action-load-env@v1.1.0
-
+      - name: Copy SSL cert
+        run: |
+          mkdir /tmp/deploy
+          cp dc-vars-data/ssl /tmp/deploy -r
       - name: Checkout project
         uses: actions/checkout@v3
         with:
@@ -22,8 +25,7 @@ jobs:
           token: ${{secrets.PAT}}
       - name: Set SSL cert
         run: |
-          ls
-          cp dc-vars-data/ssl/* nginx/ssl
+          cp /tmp/deploy/ssl/* nginx/ssl
           cd nginx/ssl
           ls
           cat logotipiwe.ru.crt
