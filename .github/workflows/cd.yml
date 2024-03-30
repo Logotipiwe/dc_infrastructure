@@ -25,11 +25,10 @@ jobs:
           token: ${{secrets.PAT}}
       - name: Set SSL cert
         run: |
-          cp /tmp/deploy/ssl/* nginx/ssl/
-          cd nginx/ssl
+          cp /tmp/deploy/ssl/* ./infra/nginx/ssl
+          cd ./infra/nginx/ssl
           ls
           cat logotipiwe.ru.crt
-          cd /kuber/infra/
       - name: Upload
         uses: garygrossgarten/github-action-scp@release
         with:
