@@ -5,7 +5,7 @@ services:
     restart: always
     shm_size: 128mb
     environment:
-      POSTGRES_PASSWORD: dsfhdgsfteryrutyertew45687iu
+      POSTGRES_PASSWORD: ${IT_ONE_PASS}
     ports:
       - 5433:5432
     volumes:
