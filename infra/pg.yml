@@ -1,5 +1,15 @@
 version: "3"
 services:
+  it_one_db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: dsfhdgsfteryrutyertew45687iu
+    ports:
+      - 5433:5432
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
   pg:
     container_name: pg
     image: postgres:16-alpine
