@@ -17,7 +17,7 @@ jobs:
       - name: Copy SSL cert
         run: |
           mkdir /tmp/deploy
-          cp dc-vars-data/ssl /tmp/deploy -r
+          cp dc-vars-data/ssl-temp /tmp/deploy -r
       - name: Checkout project
         uses: actions/checkout@v3
         with:
@@ -26,9 +26,6 @@ jobs:
       - name: Set SSL cert
         run: |
           cp /tmp/deploy/ssl/* ./infra/nginx/ssl
-          cd ./infra/nginx/ssl
-          ls
-          cat logotipiwe.ru.crt
       - name: Upload
         uses: garygrossgarten/github-action-scp@release
         with:
