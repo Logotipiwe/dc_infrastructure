@@ -1,0 +1,17 @@
+version: "3"
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - "30136:8080"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - dc-net
+networks:
+  dc-net:
+    driver: bridge
+    name: dc-net
+
+volumes:
+  jenkins_home:
