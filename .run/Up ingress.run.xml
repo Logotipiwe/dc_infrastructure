@@ -2,7 +2,7 @@
   <configuration default="false" name="Up ingress" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
-        <option name="envFilePath" value="C:\PhpstormProjects\dc_vars\local.env" />
+        <option name="envFilePath" value="$PROJECT_DIR$/../dc_vars/.env" />
         <option name="sourceFilePath" value="infra/ingress.yml" />
       </settings>
     </deployment>
