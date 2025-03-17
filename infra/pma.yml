@@ -8,8 +8,20 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       PMA_HOST: ms
       PMA_PORT: 3306
+#    ports:
+#      - 30132:80
+    networks:
+      - dc-net
+  pma_nginx:
+    image: nginx
+    container_name: pma_nginx
+    restart: always
+    volumes:
+      - ./nginx/pma-nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
     ports:
-      - 30132:80
+      - 30132:443
+    command: [ nginx-debug, '-g', 'daemon off;' ]
     networks:
       - dc-net
 networks:
