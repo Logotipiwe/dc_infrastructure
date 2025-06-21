@@ -22,9 +22,6 @@ services:
       N8N_PROTOCOL: https
       WEBHOOK_URL: https://${N8N_HOST}:30138/
       
-      # Trust proxy for proper origin handling
-      N8N_TRUST_PROXY: true
-      
       # Initial user creation (skips setup flow)
       N8N_USER_MANAGEMENT_DISABLED: false
       N8N_OWNER_EMAIL: ${N8N_OWNER_EMAIL}
