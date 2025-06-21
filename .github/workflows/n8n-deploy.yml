@@ -35,14 +35,6 @@ jobs:
           host: ${{env.DC_HOST}}
           username: ${{env.SSH_USER}}
           password: ${{env.SSH_PASSWORD}}
-      - name: Upload n8n nginx config
-        uses: garygrossgarten/github-action-scp@release
-        with:
-          local: infra/nginx/n8n-nginx.conf
-          remote: /kuber/infra/nginx/n8n-nginx.conf
-          host: ${{env.DC_HOST}}
-          username: ${{env.SSH_USER}}
-          password: ${{env.SSH_PASSWORD}}
       - name: Deploy n8n
         uses: appleboy/ssh-action@v0.1.10
         with:

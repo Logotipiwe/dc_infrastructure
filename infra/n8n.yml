@@ -20,7 +20,8 @@ services:
       N8N_HOST: ${N8N_HOST}
       N8N_PORT: 5678
       N8N_PROTOCOL: https
-      WEBHOOK_URL: https://${N8N_HOST}:30138/
+      N8N_PATH: /n8n/
+      WEBHOOK_URL: https://${N8N_HOST}/n8n/
       
       # Initial user creation (skips setup flow)
       N8N_USER_MANAGEMENT_DISABLED: false
@@ -53,29 +54,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 60s
-
-  n8n_nginx:
-    image: nginx:alpine
-    container_name: n8n_nginx
-    restart: always
-    volumes:
-      - ./nginx/n8n-nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/ssl:/etc/nginx/ssl:ro
-    ports:
-      - 30138:443
-    command: [nginx-debug, '-g', 'daemon off;']
-    networks:
-      - dc-net
-    depends_on:
-      - n8n
-    deploy:
-      resources:
-        limits:
-          cpus: '0.1'
-          memory: 64M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
 
 networks:
   dc-net:
