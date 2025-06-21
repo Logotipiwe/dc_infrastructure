@@ -1,0 +1,85 @@
+name: n8n
+version: "3"
+services:
+  n8n:
+    container_name: n8n
+    image: n8nio/n8n:latest
+    restart: always
+    environment:
+      # Database configuration using existing pg service
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: pg
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: n8n
+      DB_POSTGRESDB_USER: postgres
+      DB_POSTGRESDB_PASSWORD: ${N8N_DB_PASSWORD}
+      N8N_RUNNERS_ENABLED: true
+      
+      # n8n configuration
+      N8N_BASIC_AUTH_ACTIVE: false
+      N8N_HOST: ${N8N_HOST}:30138
+      N8N_PORT: 5678
+      N8N_PROTOCOL: https
+      WEBHOOK_URL: https://${N8N_HOST}:30138/
+      
+      # Initial user creation (skips setup flow)
+      N8N_USER_MANAGEMENT_DISABLED: false
+      N8N_OWNER_EMAIL: ${N8N_OWNER_EMAIL}
+      N8N_OWNER_PASSWORD: ${N8N_OWNER_PASSWORD}
+      N8N_OWNER_FIRST_NAME: ${N8N_OWNER_FIRST_NAME}
+      N8N_OWNER_LAST_NAME: ${N8N_OWNER_LAST_NAME}
+      
+      # Security and performance
+      N8N_SECURE_COOKIE: false
+      N8N_METRICS: true
+      EXECUTIONS_DATA_PRUNE: true
+      EXECUTIONS_DATA_MAX_AGE: 168
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - dc-net
+    deploy:
+      resources:
+        limits:
+          # Minimal allocation for low RPS (0.1-2 max)
+          cpus: '0.3'
+          memory: 384M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5678/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  n8n_nginx:
+    image: nginx:alpine
+    container_name: n8n_nginx
+    restart: always
+    volumes:
+      - ./nginx/n8n-nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    ports:
+      - 30138:443
+    command: [nginx-debug, '-g', 'daemon off;']
+    networks:
+      - dc-net
+    depends_on:
+      - n8n
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 64M
+        reservations:
+          cpus: '0.05'
+          memory: 32M
+
+networks:
+  dc-net:
+    external: true
+
+volumes:
+  n8n_data: 

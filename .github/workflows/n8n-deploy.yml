@@ -1,0 +1,96 @@
+name: n8n Deploy
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  check-deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      should-deploy: ${{ steps.check.outputs.deploy }}
+    steps:
+      - name: Check if should deploy
+        id: check
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "deploy=true" >> $GITHUB_OUTPUT
+            echo "Manual deployment triggered"
+          elif [[ "${{ github.event.head_commit.message }}" == *"[n8n]"* ]]; then
+            echo "deploy=true" >> $GITHUB_OUTPUT
+            echo "Deploy keyword found in commit message"
+          else
+            echo "deploy=false" >> $GITHUB_OUTPUT
+            echo "No deploy trigger found"
+          fi
+
+  deploy:
+    needs: check-deploy
+    if: needs.check-deploy.outputs.should-deploy == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: Logotipiwe/dc_vars
+          token: ${{secrets.PAT}}
+      - name: load-env
+        uses: duskmoon314/action-load-env@v1.1.0
+      - name: Copy SSL cert
+        run: |
+          mkdir /tmp/deploy
+          cp dc-vars-data/ssl /tmp/deploy -r
+      - name: Checkout project
+        uses: actions/checkout@v3
+        with:
+          repository: Logotipiwe/dc_infrastructure
+          token: ${{secrets.PAT}}
+      - name: Set SSL cert
+        run: |
+          cp /tmp/deploy/ssl/* ./infra/nginx/ssl
+      - name: Upload n8n files
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: infra/n8n.yml
+          remote: /kuber/infra/n8n.yml
+          host: ${{env.DC_HOST}}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
+      - name: Upload n8n nginx config
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: infra/nginx/n8n-nginx.conf
+          remote: /kuber/infra/nginx/n8n-nginx.conf
+          host: ${{env.DC_HOST}}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
+      - name: Deploy n8n
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{env.DC_HOST}}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
+          port: 22
+          script: |
+            export N8N_DB_USER=postgres
+            export N8N_DB_PASSWORD=${{env.DB_PASS}}
+            export N8N_OWNER_EMAIL=${{env.N8N_OWNER_EMAIL}}
+            export N8N_OWNER_PASSWORD=${{env.N8N_OWNER_PASSWORD}}
+            export N8N_OWNER_FIRST_NAME="${{env.N8N_OWNER_FIRST_NAME}}"
+            export N8N_OWNER_LAST_NAME="${{env.N8N_OWNER_LAST_NAME}}"
+            export N8N_HOST=${{env.N8N_HOST}}
+            cd /kuber/infra/
+            
+            echo "Pulling latest n8n images..."
+            docker-compose -f n8n.yml pull --quiet
+            
+            echo "Performing seamless restart of n8n service..."
+            docker-compose -f n8n.yml up -d --no-deps --force-recreate
+            
+            echo "Waiting for n8n to be ready..."
+            sleep 10
+            
+            echo "Checking n8n service status..."
+            docker-compose -f n8n.yml ps
+            
+            echo "Verifying n8n health..."
+            docker-compose -f n8n.yml exec -T n8n wget --no-verbose --tries=3 --spider http://localhost:5678/healthz || echo "Health check will retry automatically" 
