@@ -50,7 +50,7 @@ docker-compose -f n8n.yml up -d
 ### Deployment
 n8n has its own separate CI/CD workflow. Deploy it by either:
 1. **Manual deployment**: Use GitHub Actions "n8n Deploy" workflow
-2. **Commit keyword**: Include `[deploy n8n]` or `[n8n deploy]` in your commit message
+2. **Commit keyword**: Include `[n8n]` anywhere in your commit message
 
 ### Access
 - n8n will be available at: **https://your-domain:30138**
