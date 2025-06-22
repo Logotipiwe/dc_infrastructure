@@ -50,6 +50,7 @@ jobs:
             export N8N_OWNER_FIRST_NAME="${{env.N8N_OWNER_FIRST_NAME}}"
             export N8N_OWNER_LAST_NAME="${{env.N8N_OWNER_LAST_NAME}}"
             export N8N_HOST=${{env.N8N_HOST}}
+            export N8N_ENCRYPTION_KEY=${{env.N8N_ENCRYPTION_KEY}}
             cd /kuber/infra/
             
             echo "Pulling latest n8n images..."
