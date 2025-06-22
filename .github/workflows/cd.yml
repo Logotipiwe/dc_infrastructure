@@ -49,11 +49,11 @@ jobs:
 
             cd /kuber/infra/
             
-            docker-compose $(ls *.yml|sed "s/^/-f /g"|xargs) down --remove-orphans
-            docker-compose -f ingress.yml up -d
-            docker-compose -f ms.yml up -d
-            docker-compose -f pma.yml up -d
-            docker-compose -f portainer.yml up -d
-            docker-compose -f pg.yml up -d
-            docker-compose -f pgadmin.yml up -d
-            docker-compose -f jenkins.yml up -d
+            FILES="ingress.yml ms.yml pma.yml portainer.yml pg.yml pgadmin.yml"
+            
+            # Iterate over specified files to pull and recreate
+            for file in $FILES; do
+              echo "Processing $file..."
+              docker-compose -f "$file" pull --quiet
+              docker-compose -f "$file" up -d --no-deps --force-recreate
+            done
