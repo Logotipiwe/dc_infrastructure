@@ -57,12 +57,3 @@ jobs:
             
             echo "Performing seamless restart of n8n service..."
             docker-compose -f n8n.yml up -d --no-deps --force-recreate
-            
-            echo "Waiting for n8n to be ready..."
-            sleep 10
-            
-            echo "Checking n8n service status..."
-            docker-compose -f n8n.yml ps
-            
-            echo "Verifying n8n health..."
-            docker-compose -f n8n.yml exec -T n8n wget --no-verbose --tries=3 --spider http://localhost:5678/healthz || echo "Health check will retry automatically" 
