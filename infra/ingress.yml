@@ -8,6 +8,8 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
       - ./nginx/well-known:/etc/nginx/well-known:ro #для публикации acme-challenge от certbot
+      - ./nginx/404.html:/etc/nginx/404.html:ro
+      - ./nginx/50x.html:/etc/nginx/50x.html:ro
     ports:
     - 80:80
     - 443:443
