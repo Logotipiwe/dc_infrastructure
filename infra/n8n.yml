@@ -1,3 +1,4 @@
+name: n8n
 version: "3"
 services:
   n8n:
