@@ -56,10 +56,5 @@ jobs:
             echo "Pulling latest n8n images..."
             docker-compose -f n8n.yml pull --quiet
             
-            echo "Performing seamless restart of n8n service..."
-            docker-compose -f n8n.yml stop n8n
-            docker-compose -f n8n.yml rm -f n8n
-            docker-compose -f n8n.yml up -d n8n
-            
-            echo "Checking n8n service status..."
-            docker-compose -f n8n.yml ps n8n
+            docker-compose -f n8n.yml down
+            docker-compose -f n8n.yml up -d
