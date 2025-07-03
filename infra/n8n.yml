@@ -44,9 +44,9 @@ services:
     deploy:
       resources:
         limits:
-          # Minimal allocation for low RPS (0.1-2 max)
-          cpus: '0.3'
-          memory: 384M
+          # Minimal allocation for low RPS (6 max)
+          cpus: '1'
+          memory: 1024M
         reservations:
           cpus: '0.1'
           memory: 128M
