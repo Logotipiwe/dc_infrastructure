@@ -1,14 +1,15 @@
+name: n8n
 version: "3"
 services:
-  n8n:
-    container_name: n8n
+  n8n_test:
+    container_name: n8n_test
     image: n8nio/n8n:latest
     restart: always
     environment:
       DB_TYPE: postgresdb
       DB_POSTGRESDB_HOST: pg
       DB_POSTGRESDB_PORT: 5432
-      DB_POSTGRESDB_DATABASE: n8n
+      DB_POSTGRESDB_DATABASE: n8n_test
       DB_POSTGRESDB_USER: postgres
       DB_POSTGRESDB_PASSWORD: ${N8N_DB_PASSWORD}
       N8N_RUNNERS_ENABLED: true
@@ -17,11 +18,11 @@ services:
       
       # n8n configuration
       N8N_BASIC_AUTH_ACTIVE: false
-      N8N_HOST: ${N8N_HOST}
+      N8N_HOST: ${N8N_TEST_HOST}
       N8N_PORT: 5678
       N8N_PROTOCOL: https
-      N8N_PATH: /n8n/
-      WEBHOOK_URL: https://${N8N_HOST}/n8n/
+#      N8N_PATH: /n8n/
+      WEBHOOK_URL: https://${N8N_TEST_HOST}/
       
       # Initial user creation (skips setup flow)
       N8N_USER_MANAGEMENT_DISABLED: false
@@ -36,15 +37,15 @@ services:
       EXECUTIONS_DATA_PRUNE: true
       EXECUTIONS_DATA_MAX_AGE: 168
     volumes:
-      - n8n_data:/home/node/.n8n
+      - n8n_test_data:/home/node/.n8n
     networks:
       - dc-net
     deploy:
       resources:
         limits:
-          # Minimal allocation for low RPS (6 max)
-          cpus: '1'
-          memory: 1024M
+          # Minimal allocation for low RPS (2 max)
+          cpus: '0.3'
+          memory: 300M
         reservations:
           cpus: '0.1'
           memory: 128M
@@ -60,4 +61,4 @@ networks:
     external: true
 
 volumes:
-  n8n_data: 
+  n8n_test_data:

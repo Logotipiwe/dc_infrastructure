@@ -1,0 +1,52 @@
+name: n8n Test Deploy
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[n8n-test]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: Logotipiwe/dc_vars
+          token: ${{secrets.PAT}}
+      - name: load-env
+        uses: duskmoon314/action-load-env@v1.1.0
+      - name: Checkout project
+        uses: actions/checkout@v3
+        with:
+          repository: Logotipiwe/dc_infrastructure
+          token: ${{secrets.PAT}}
+      - name: Upload n8n files
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: infra/n8n-test.yml
+          remote: /kuber/infra/n8n-test.yml
+          host: ${{env.DC_HOST}}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
+      - name: Deploy test n8n
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{env.DC_HOST}}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
+          port: 22
+          script: |
+            export N8N_DB_USER=postgres
+            export N8N_DB_PASSWORD=${{env.DB_PASS}}
+            export N8N_OWNER_EMAIL=${{env.N8N_OWNER_EMAIL}}
+            export N8N_OWNER_PASSWORD=${{env.N8N_OWNER_PASSWORD}}
+            export N8N_OWNER_FIRST_NAME="${{env.N8N_OWNER_FIRST_NAME}}"
+            export N8N_OWNER_LAST_NAME="${{env.N8N_OWNER_LAST_NAME}}"
+            export N8N_TEST_HOST=${{env.N8N_TEST_HOST}}
+            export N8N_ENCRYPTION_KEY=${{env.N8N_ENCRYPTION_KEY}}
+            cd /kuber/infra/
+            
+            echo "Pulling latest n8n images..."
+            docker-compose -f n8n-test.yml pull --quiet
+            
+            docker-compose -f n8n-test.yml down
+            docker-compose -f n8n-test.yml up -d

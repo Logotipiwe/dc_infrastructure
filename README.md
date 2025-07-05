@@ -11,6 +11,13 @@ Nice to have:
 - Изучить renew
 - Автоматический ввод webroot в команду certbot
 
+### Wildcard domain cert
+On server shell:
+```shell
+certbot certonly -d *.logotipiwe.ru --manual
+```
+Put txt record in timeweb dns.
+
 ## n8n Setup
 ### Initial Database Setup
 Before first deployment, create the n8n database in PostgreSQL:
