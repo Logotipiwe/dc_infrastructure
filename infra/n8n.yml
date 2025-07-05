@@ -20,8 +20,8 @@ services:
       N8N_HOST: ${N8N_HOST}
       N8N_PORT: 5678
       N8N_PROTOCOL: https
-      N8N_PATH: /n8n/
-      WEBHOOK_URL: https://${N8N_HOST}/n8n/
+#      N8N_PATH: /n8n/
+      WEBHOOK_URL: https://${N8N_HOST}/
       
       # Initial user creation (skips setup flow)
       N8N_USER_MANAGEMENT_DISABLED: false
