@@ -34,6 +34,9 @@ certbot certonly --authenticator dns-timeweb \
   --dns-timeweb-credentials /etc/letsencrypt/timeweb-creds.ini \
   -d logotipiwe.ru -d *.logotipiwe.ru -n --expand
 ```
+
+TODO - сделать это в докер контенйере локально
+
 ## n8n Setup
 ### Initial Database Setup
 Before first deployment, create the n8n database in PostgreSQL:
