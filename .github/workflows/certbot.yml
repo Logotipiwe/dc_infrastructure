@@ -20,22 +20,15 @@ jobs:
         with:
           repository: Logotipiwe/dc_infrastructure
           token: ${{secrets.PAT}}
-      - name: Upload certbot files
+      - name: Upload
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: infra/certbot.yml
-          remote: /kuber/infra/certbot.yml
+          local: infra
+          remote: /kuber/infra
           host: ${{env.DC_HOST}}
           username: ${{env.SSH_USER}}
           password: ${{env.SSH_PASSWORD}}
-      - name: Upload certbot directory
-        uses: garygrossgarten/github-action-scp@release
-        with:
-          local: infra/certbot
-          remote: /kuber/infra/certbot
-          host: ${{env.DC_HOST}}
-          username: ${{env.SSH_USER}}
-          password: ${{env.SSH_PASSWORD}}
+          concurrency: 20
       - name: Deploy certbot
         uses: appleboy/ssh-action@v0.1.10
         with:
