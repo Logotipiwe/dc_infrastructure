@@ -1,0 +1,33 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="certbot" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="envFilePath" value="" />
+        <option name="envVars">
+          <list>
+            <DockerEnvVarImpl>
+              <option name="name" value="TELEGRAM_BOT_TOKEN" />
+              <option name="value" value="8274437727:AAGtAcoIDWP_mIjZWyvgHe1WNgKvR4Ssln4 " />
+            </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="TIMEWEB_API_KEY" />
+              <option name="value" value="eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6IjFrYnhacFJNQGJSI0tSbE1xS1lqIn0.eyJ1c2VyIjoiY3cyMjQ4MyIsInR5cGUiOiJhcGlfa2V5IiwiYXBpX2tleV9pZCI6ImI4NmU5MzRlLWYxM2EtNDFkMi1hZmViLWQ3MDgwODZiZDkwYyIsImlhdCI6MTc1Mzg1NzEzN30.uvwsNC8YZ1sDkduv6B-D5jY2Zy8yvDP2qirV0dsQc0ZKaDsrbOoVDFPK4bdVOZ6ipTs02TaIusWodPnxixEgPbAJJhMsmbywU3_-e-XAQ3uASB4gyYmjI94yPgBUsJz3I_QOf95x6tVY3vyuSBb4j1sGnOn4T5_fblzKDSrOHBus-PvQxAD7UR8RRcOpuzwwCcpxoGFQVtZo8QCOyjdHwtYg0xVMSyhWLneF6QWBBKDPNnRoGO-qE8cU6UwGO3Y08adpf9SLhT29NtcydXyRYabGyR9BbSKRM29I4aFkWknaRc9pd-bbbY4-uhxpVpTeqmpLWibubzOdLGxgbpEAd6fHICXoUczTvomhPtZF8H1zn9c_8eJF-ansDtNHqYZl7vCLm85NEKYVqHGpveNI1uBCQWVhhpkJG66zq1nZDPKp2P0AtEbM6iWzMOx8CRtJdMBk-1dnVPKcUSWBO2nMoljaLsJu7xwnQsnZXbdLZJSwsedrCpaqAg316VDN-e45" />
+            </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="TELEGRAM_CHAT_ID" />
+              <option name="value" value="214583870" />
+            </DockerEnvVarImpl>
+          </list>
+        </option>
+        <option name="commandLineOptions" value="--build" />
+        <option name="services">
+          <list>
+            <option value="certbot" />
+          </list>
+        </option>
+        <option name="sourceFilePath" value="infra/certbot.yml" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>

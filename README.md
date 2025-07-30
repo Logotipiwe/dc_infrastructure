@@ -1,23 +1,39 @@
 # Инструкции к инфре
 ## Nginx ingress
-### Обновление сертификата через certbot
+### Обновление сертификата через certbot (вручную)
 В консоли хост системы прогнать:
 ```shell
 sudo certbot certonly --webroot
 ```
 В webroot ввести `/kuber/infra/nginx/well-known`
 
-Nice to have: 
-- Изучить renew
-- Автоматический ввод webroot в команду certbot
+Скопировать содержимое pem файлов в .crt и .key файлы
 
-### Wildcard domain cert
+#### Wildcard domain cert
 On server shell:
 ```shell
 certbot certonly -d *.logotipiwe.ru --manual
 ```
 Put txt record in timeweb dns.
 
+### Certbot автоматический
+На хосте:
+```shell
+apt-get update
+apt-get install python3-pip -y
+pip install certbot-dns-timeweb
+```
+Заполнить /ini
+```
+dns_timeweb_api_key = XXXXXXXXXXXXXXXXXXX
+```
+
+Сам сертбот:
+```shell
+certbot certonly --authenticator dns-timeweb \
+  --dns-timeweb-credentials /etc/letsencrypt/timeweb-creds.ini \
+  -d logotipiwe.ru -d *.logotipiwe.ru -n --expand
+```
 ## n8n Setup
 ### Initial Database Setup
 Before first deployment, create the n8n database in PostgreSQL:
