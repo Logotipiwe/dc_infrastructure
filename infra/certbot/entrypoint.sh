@@ -4,7 +4,7 @@ echo "Hi! Starting certbot container..."
 
 cleanup() {
     echo "Received signal, shutting down gracefully..."
-    pkill cron
+    pkill crond
     pkill tail
     exit 0
 }
@@ -19,7 +19,7 @@ echo "Setting up cron job for 6 AM daily..."
 echo "*/10 * * * * /scripts/renew-certs.sh >> /var/log/cron.log 2>&1" | crontab -
 
 echo "Starting cron daemon..."
-cron
+crond
 touch /var/log/cron.log
 echo "Container started. Tailing cron log..."
 tail -f /var/log/cron.log &
