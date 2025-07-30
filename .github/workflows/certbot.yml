@@ -49,4 +49,4 @@ jobs:
             export TELEGRAM_CHAT_ID=${{env.CERTBOT_TELEGRAM_CHAT_ID}}
             cd /kuber/infra/
             docker-compose -f certbot.yml pull --quiet
-            docker-compose -f certbot.yml up --build -d --no-deps --force-recreate
+            docker-compose -f certbot.yml up --build -d
