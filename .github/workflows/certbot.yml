@@ -1,0 +1,54 @@
+name: Certbot CI
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  build:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[certbot]') || contains(github.event.head_commit.message, '[ssl]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: Logotipiwe/dc_vars
+          token: ${{secrets.PAT}}
+      - name: load-env
+        uses: duskmoon314/action-load-env@v1.1.0
+      - name: Copy SSL cert
+        run: |
+          mkdir /tmp/deploy
+          cp dc-vars-data/ssl /tmp/deploy -r
+      - name: Checkout project
+        uses: actions/checkout@v3
+        with:
+          repository: Logotipiwe/dc_infrastructure
+          token: ${{secrets.PAT}}
+      - name: Upload yml file
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: infra/certbot.yml
+          remote: /kuber/infra/certbot.yml
+          host: ${{env.DC_HOST}}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
+      - name: Upload certbot dir
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: infra/certbot
+          remote: /kuber/infra/certbot
+          host: ${{env.DC_HOST}}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
+          concurrency: 20
+      - name: Deploy
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{env.DC_HOST}}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
+          port: 22
+          script: |
+            cd /kuber/infra/
+            export CERTBOT_OWNER_EMAIL=${{env.CERTBOT_OWNER_EMAIL}}
+            export TIMEWEB_API_KEY=${{env.CERTBOT_TIMEWEB_API_KEY}}
+            docker-compose -f certbot.yml up -d --build --no-deps --force-recreate

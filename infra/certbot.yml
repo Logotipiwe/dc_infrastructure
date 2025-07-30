@@ -1,0 +1,20 @@
+version: "3"
+services:
+  certbot:
+    build:
+      context: ./certbot/docker
+      dockerfile: Dockerfile
+    container_name: certbot
+    restart: unless-stopped
+    environment:
+      DNS_WAIT_SECONDS: 20
+      CERTBOT_OWNER_EMAIL: ${CERTBOT_OWNER_EMAIL}
+      DOMAINS: logotipiwe.ru,*.logotipiwe.ru
+      TIMEWEB_API_KEY: ${TIMEWEB_API_KEY}
+    volumes:
+      - ./certbot/entrypoint.sh:/entrypoint.sh:ro
+      - ./certbot/scripts:/scripts:ro
+      - ../certs:/host-certs:rw
+networks:
+  dc-net:
+    external: true
