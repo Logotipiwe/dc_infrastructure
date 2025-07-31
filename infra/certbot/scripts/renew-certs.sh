@@ -12,7 +12,7 @@ certbot certonly --authenticator dns-timeweb \
   --cert-name logotipiwe.ru \
   -d ${DOMAINS} -n --expand \
   --force-renewal \
-  --test-cert \
+#  --test-cert \
   --agree-tos --email=${CERTBOT_OWNER_EMAIL} \
   --dns-timeweb-propagation-seconds=${DNS_WAIT_SECONDS}
 
