@@ -21,6 +21,8 @@ echo "Setting up cron job for 6 AM daily..."
   echo "CERTBOT_OWNER_EMAIL=${CERTBOT_OWNER_EMAIL}"
   echo "DOMAINS=${DOMAINS}"
   echo "TIMEWEB_API_KEY=${TIMEWEB_API_KEY}"
+  echo "TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}"
+  echo "TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}"
   echo "0 6 */5 * * sh /usr/local/bin/renew-certs.sh >> /var/log/cron.log 2>&1"
 ) | crontab -
 

@@ -51,4 +51,6 @@ jobs:
             cd /kuber/infra/
             export CERTBOT_OWNER_EMAIL=${{env.CERTBOT_OWNER_EMAIL}}
             export TIMEWEB_API_KEY=${{env.CERTBOT_TIMEWEB_API_KEY}}
+            export TELEGRAM_BOT_TOKEN=${{env.CERTBOT_TELEGRAM_BOT_TOKEN}}
+            export TELEGRAM_CHAT_ID=${{env.CERTBOT_TELEGRAM_CHAT_ID}}
             docker-compose -f certbot.yml up -d --build --no-deps --force-recreate
