@@ -10,9 +10,11 @@ cleanup() {
 }
 trap cleanup SIGTERM SIGINT
 
-chmod +x /scripts/renew-certs.sh
+# Copy script to writable location and make executable
+cp /scripts/renew-certs.sh /usr/local/bin/renew-certs.sh
+chmod +x /usr/local/bin/renew-certs.sh
 echo "Running initial certificate renewal..."
-sh /scripts/renew-certs.sh
+sh /usr/local/bin/renew-certs.sh
 
 echo "Setting up cron job for 6 AM daily..."
 # TODO make monthly
@@ -21,7 +23,7 @@ echo "Setting up cron job for 6 AM daily..."
   echo "CERTBOT_OWNER_EMAIL=${CERTBOT_OWNER_EMAIL}"
   echo "DOMAINS=${DOMAINS}"
   echo "TIMEWEB_API_KEY=${TIMEWEB_API_KEY}"
-  echo "*/5 * * * * /scripts/renew-certs.sh >> /var/log/cron.log 2>&1"
+  echo "* * * * * sh /usr/local/bin/renew-certs.sh >> /var/log/cron.log 2>&1"
 ) | crontab -
 
 echo "Starting cron daemon..."
