@@ -1,0 +1,46 @@
+name: Grafana CI
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  build:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[grafana]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: Logotipiwe/dc_vars
+          token: ${{secrets.PAT}}
+      - name: load-env
+        uses: duskmoon314/action-load-env@v1.1.0
+      - name: Checkout project
+        uses: actions/checkout@v3
+        with:
+          repository: Logotipiwe/dc_infrastructure
+          token: ${{secrets.PAT}}
+      - name: Upload
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: infra/grafana
+          remote: /kuber/grafana
+          host: ${{env.DC_HOST}}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
+      - name: Deploy
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{env.DC_HOST}}
+          username: ${{env.SSH_USER}}
+          password: ${{env.SSH_PASSWORD}}
+          port: 22
+          script: |
+            cd /kuber/grafana/
+            
+            export GRAFANA_ADMIN_USER=${{env.GRAFANA_ADMIN_USER}}
+            export GRAFANA_ADMIN_PASSWORD=${{env.GRAFANA_ADMIN_PASSWORD}}
+            export GRAFANA_DOMAIN=${{env.GRAFANA_DOMAIN}}
+            export GRAFANA_DATABASE_PASSWORD=${{env.DB_PASS}}
+            
+            docker-compose pull --quiet
+            docker-compose up -d --no-deps --force-recreate

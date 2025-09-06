@@ -17,6 +17,10 @@
               <option name="name" value="TELEGRAM_CHAT_ID" />
               <option name="value" value="214583870" />
             </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="CERTBOT_OWNER_EMAIL" />
+              <option name="value" value="german.reus@bk.ru" />
+            </DockerEnvVarImpl>
           </list>
         </option>
         <option name="commandLineOptions" value="--build" />
