@@ -9,7 +9,7 @@ services:
     environment:
       DNS_WAIT_SECONDS: 20
       CERTBOT_OWNER_EMAIL: ${CERTBOT_OWNER_EMAIL}
-      DOMAINS: logotipiwe.ru,*.logotipiwe.ru
+      DOMAINS: logotipiwe.ru,*.logotipiwe.ru,chestno-game.ru,*.chestno-game.ru,chestno-game.online,*.chestno-game.online
       TIMEWEB_API_KEY: ${TIMEWEB_API_KEY}
       TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
       TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
