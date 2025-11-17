@@ -34,6 +34,7 @@ jobs:
           host: ${{env.DC_HOST}}
           username: ${{env.SSH_USER}}
           password: ${{env.SSH_PASSWORD}}
+          concurrency: 20
       - name: Deploy
         uses: appleboy/ssh-action@v0.1.10
         with:
